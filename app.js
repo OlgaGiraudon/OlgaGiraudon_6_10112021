@@ -3,7 +3,7 @@ const express = require('express');
 //Import bodyparser package. Поключение пакета bodyparser, который преобразует тело запроса в формат json
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const Sauce = require('./models/ModelSauce');
+const stuffRoutes = require('./routes/stuff');
 //Connection to DataBase
 mongoose.connect('mongodb+srv://olga:moldova@cluster0.xet0r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -21,40 +21,7 @@ app.use((req, res, next) => {
   });
 //application bodyparser for all api requests. Применение бодипарсера ко всем запросам апи. Теперь все тела запроса будут переводится в объекты JS
 app.use(bodyParser.json());
+app.use('/api/sauces', stuffRoutes);
 
-//POST API
-app.post('/api/sauces', (req, res, next) => {
-    delete req.body._id;
-    const sauce = new Sauce({
-      ...req.body
-    });
-    sauce.save()//writing a new sauce to the database  Запись нового соуса в базу данных
-      .then(() => res.status(201).json({ message: 'Votre sauce a été enregistrée !'}))
-      .catch(error => res.status(400).json({ error }));
-  });
-  //PUT API
-  app.put('/api/sauces/:id', (req, res, next) => {
-    Sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-      .then(() => res.status(200).json({ message: 'La sauce a été modifiée !'}))
-      .catch(error => res.status(400).json({ error }));
-  });
-  //DELETE API
-  app.delete('/api/sauces/:id', (req, res, next) => {
-    Sauce.deleteOne({ _id: req.params.id })
-      .then(() => res.status(200).json({ message: 'Sauce supprimée !'}))
-      .catch(error => res.status(400).json({ error }));
-  });
- // GET BY ID
- app.get('/api/sauces/:id', (req, res, next) => {
-    Sauce.findOne({ _id: req.params.id })
-      .then(sauce => res.status(200).json(sauce))
-      .catch(error => res.status(404).json({ error }));
-  }); 
-//GET ALL API
-  app.get('/api/sauces', (req, res, next) => {
-    Sauce.find()
-      .then(sauces => res.status(200).json(sauces))
-      .catch(error => res.status(400).json({ error }));
-  });
 //Export const app for other files. Экспорт константы app, чтобы ее можно было использовать в других файлах
 module.exports = app;
