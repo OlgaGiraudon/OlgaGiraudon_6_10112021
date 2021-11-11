@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
+const path = require('path');
 //Connection to DataBase
 mongoose.connect('mongodb+srv://olga:moldova@cluster0.xet0r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -22,6 +23,8 @@ app.use((req, res, next) => {
   });
 //application bodyparser for all api requests. Применение бодипарсера ко всем запросам апи. Теперь все тела запроса будут переводится в объекты JS
 app.use(bodyParser.json());
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', stuffRoutes);
 app.use('/api/auth', userRoutes);
 
