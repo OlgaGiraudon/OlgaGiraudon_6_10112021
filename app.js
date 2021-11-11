@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const stuffRoutes = require('./routes/stuff');
+const userRoutes = require('./routes/user');
 //Connection to DataBase
 mongoose.connect('mongodb+srv://olga:moldova@cluster0.xet0r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 //application bodyparser for all api requests. Применение бодипарсера ко всем запросам апи. Теперь все тела запроса будут переводится в объекты JS
 app.use(bodyParser.json());
 app.use('/api/sauces', stuffRoutes);
+app.use('/api/auth', userRoutes);
 
 //Export const app for other files. Экспорт константы app, чтобы ее можно было использовать в других файлах
 module.exports = app;
