@@ -8,6 +8,8 @@ const multer = require('../middleware/multer-config');
 
 //POST API
 router.post('/', auth, multer, stuffCtrl.createSauce);
+//Like
+router.post('/:id/like', auth, stuffCtrl.setOpinion );
 //PUT API
 router.put('/:id', auth, multer, stuffCtrl.modifySauce );
   //DELETE API
@@ -16,4 +18,5 @@ router.delete('/:id', auth, stuffCtrl.deleteSauce);
  router.get('/:id', auth, stuffCtrl.getOneSauce);
 //GET ALL API
 router.get('/', auth, stuffCtrl.getAllSauces);
+
 module.exports = router;

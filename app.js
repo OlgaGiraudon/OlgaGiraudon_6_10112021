@@ -28,5 +28,6 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', stuffRoutes);
 app.use('/api/auth', userRoutes);
 
+
 //Export const app for other files. Экспорт константы app, чтобы ее можно было использовать в других файлах
 module.exports = app;
