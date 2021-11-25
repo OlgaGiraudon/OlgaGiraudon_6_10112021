@@ -6,8 +6,12 @@ const mongoose = require('mongoose');
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
 const path = require('path');
+const dotenv = require("dotenv");
+dotenv.config();
+const BDCONNECT = process.env.BDCONNECT;
+
 //Connection to DataBase
-mongoose.connect('mongodb+srv://olga:moldova@cluster0.xet0r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect(BDCONNECT,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))

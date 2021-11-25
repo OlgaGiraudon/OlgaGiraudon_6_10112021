@@ -19,4 +19,5 @@ router.delete('/:id', auth, stuffCtrl.deleteSauce);
 //GET ALL API
 router.get('/', auth, stuffCtrl.getAllSauces);
 
+
 module.exports = router;
